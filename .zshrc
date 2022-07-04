@@ -106,3 +106,27 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 export PATH="$PATH:$HOME/bin"
+
+
+function mcd() {
+	mkdir $1 && cd $1
+}
+
+
+function zet() {
+	vim $(date "+%Y%m%d%H%M").md
+}
+
+
+function zett() {
+  filename=$(date "+%Y%m%d%H%M").md
+	touch $filename
+	echo "from: \nnext: \ntags: \n-----\n\n#" >> $filename
+	vim $filename
+}
+
+
+function zgrep() {
+	vim $(grep -rl $1 .)
+}
+

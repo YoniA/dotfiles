@@ -100,6 +100,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias commit="git commit -m \"$(date)\""
+
 
 function mcd() {
 	mkdir $1 && cd $1
