@@ -9,3 +9,7 @@ noremap <Up> <nop>
 noremap <Down> <nop>
 noremap <Right> <nop>
 noremap <Left> <nop>
+
+" disable flickering on git bash for Windows
+set visualbell
+set t_vb=
