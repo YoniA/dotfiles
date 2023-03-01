@@ -1,6 +1,9 @@
 syntax on
 
+" enable hybrid line numbers
+set number
 set relativenumber
+
 set hls
 
 set tabstop=2
@@ -30,7 +33,6 @@ noremap <Left> <nop>
 
 
 
-
 call plug#begin('~/.vim/plugged')
 "call plug#begin()
 
@@ -46,8 +48,3 @@ colorscheme moonfly
 
 "colorscheme NeoSolarized
 let g:neosolarized_contrast = "low"
-
-
-" disable flickering on git bash for Windows
-set visualbell
-set t_vb=
