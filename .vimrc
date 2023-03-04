@@ -48,3 +48,13 @@ colorscheme moonfly
 
 "colorscheme NeoSolarized
 let g:neosolarized_contrast = "low"
+
+
+" capitalize every sentence in a line
+function Cap()
+  " capitalize first word character in a line
+  s/\(^\s*\)\(\w\)/\1\u\2/e
+
+  " capitalize every first word character after a period character
+  s/\(\.\s*\)\(\w\)\(\w*\)/\1\u\2\3/ge
+endfunction
