@@ -21,6 +21,9 @@ set spell
 
 set path+=**
 
+" conceal mardown syntax
+set conceallevel=2
+
 " support true-color terminal emulators
 set termguicolors
 
@@ -40,6 +43,9 @@ Plug 'bluz71/vim-nightfly-guicolors'
 Plug 'overcache/NeoSolarized'
 Plug 'preservim/nerdtree'
 Plug 'bluz71/vim-moonfly-colors'
+Plug 'junegunn/vim-easy-align'
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
 call plug#end()
 
 
@@ -48,6 +54,17 @@ colorscheme moonfly
 
 "colorscheme NeoSolarized
 let g:neosolarized_contrast = "low"
+
+
+" disable markdown folding (vim-markdown plugin)
+let g:vim_markdown_folding_disabled = 1
+
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 
 " capitalize every sentence in a line
