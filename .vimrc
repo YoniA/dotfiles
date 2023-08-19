@@ -46,6 +46,8 @@ Plug 'bluz71/vim-moonfly-colors'
 Plug 'junegunn/vim-easy-align'
 Plug 'godlygeek/tabular'
 Plug 'preservim/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 call plug#end()
 
 
@@ -75,3 +77,41 @@ function Cap()
   " capitalize every first word character after a period character
   s/\(\.\s*\)\(\w\)\(\w*\)/\1\u\2\3/ge
 endfunction
+
+
+
+
+function! ShowNumberedFileDropdown()
+    let current_word = expand('<cword>')
+    let file_list = glob('./*', 0, 1)
+    let numbered_list = map(copy(file_list), 'v:val =~ "/$" ? v:val : printf("%d: %s", v:key+1, substitute(v:val, "./", "", ""))')
+    let selection = inputlist(numbered_list)
+    if selection != -1
+        let file_number = matchstr(selection, '^\d\+')
+        let file_name = file_list[file_number - 1]
+        let file_name = substitute(file_name, "./", "", "")
+        let enclosed_word = '[' . current_word . ']'
+        let combined_text = enclosed_word . '(' . fnameescape(file_name) . ')'
+        execute 'normal! ciw' . combined_text
+    endif
+endfunction
+
+nnoremap md :call ShowNumberedFileDropdown()<CR>
+inoremap <C-l> <Esc>:call ShowNumberedFileDropdown()<CR>
+
+
+" markup preview plugin configuration
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {},
+    \ 'content_editable': v:false,
+    \ 'disable_filename': 0,
+    \ 'toc': {}
+    \ }
