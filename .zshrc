@@ -114,19 +114,27 @@ function mcd() {
 
 
 function zet() {
-	vim $(date "+%Y%m%d%H%M").md
-}
-
-
-function zett() {
-  filename=$(date "+%Y%m%d%H%M").md
+	echo -n "Title: "
+	read title
+	text_title=$(echo $title | sed 's/ /_/g; s/\(.*\)/\L\1/')
+  filename=${text_title}.md
 	touch $filename
-	echo "from: \nnext: \ntags: \n-----\n\n#" >> $filename
+
+	id=$(date "+%Y%m%d%H%M")
+	echo "id: ${id}\n\n\n# ${title}\n\n\n\n\n## References\n\n\n\n## Links to this file\n\n\n\n## Tags\n\n" >> $filename
 	vim $filename
 }
 
-
 function zgrep() {
-	vim $(grep -rl $1 .)
+	ls -l $(grep -rl --exclude tags.txt $1 .)
 }
 
+function ztags() {
+  grep -ohE '@#\w+' *.md >> temp.txt
+  cat temp.txt | sort | uniq > tags.txt
+  rm temp.txt
+}
+
+function timer() {
+	sh ~/Development/terminal-tools/timer/timer.sh
+}
