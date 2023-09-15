@@ -107,6 +107,8 @@ eval "$(rbenv init -)"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 export PATH="$PATH:$HOME/bin"
 
+# set vi motions in termial
+set -o vi
 
 function mcd() {
 	mkdir $1 && cd $1
@@ -121,19 +123,22 @@ function zet() {
 	touch $filename
 
 	id=$(date "+%Y%m%d%H%M")
-	echo "id: ${id}\n\n\n# ${title}\n\n\n\n\n## References\n\n\n\n## Links to this file\n\n\n\n## Tags\n\n" >> $filename
+	echo "id: ${id}\n\n\n# ${title}\n\n\n\n\n## References\n\n\n\n## Links to this note\n\n\n\n## Tags\n\n" >> $filename
 	vim $filename
 }
 
 function zgrep() {
-	ls -l $(grep -rl --exclude tags.txt $1 .)
+  ls -l $(grep -rl --exclude tags.txt $1 .) | sed 's/\.\///'
 }
 
 function ztags() {
   grep -ohE '@#\w+' *.md >> temp.txt
   cat temp.txt | sort | uniq > tags.txt
+  cat tags.txt
   rm temp.txt
+  rm tags.txt
 }
+
 
 function timer() {
 	sh ~/Development/terminal-tools/timer/timer.sh
