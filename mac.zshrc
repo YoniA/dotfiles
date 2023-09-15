@@ -101,6 +101,19 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias commit="git commit -m \"$(date)\""
+alias www="w3m"
+
+# set vi motions in termial
+set -o vi
+
+function commit() {
+    if [[ -n "$1" ]]; then
+        git commit -m "$1"
+    else
+        git commit -m "\"$(date)\""
+
+    fi
+}
 
 
 function mcd() {
@@ -109,19 +122,25 @@ function mcd() {
 
 
 function zet() {
-	vim $(date "+%Y%m%d%H%M").md
-}
-
-
-function zett() {
-  filename=$(date "+%Y%m%d%H%M").md
+	echo -n "Title: "
+	read title
+	text_title=$(echo $title | sed 's/ /_/g; s/\(.*\)/\L\1/')
+  filename=${text_title}.md
 	touch $filename
-	echo "from: \nnext: \ntags: \n-----\n\n#" >> $filename
+
+	id=$(date "+%Y%m%d%H%M")
+	echo "id: ${id}\n\n\n# ${title}\n\n\n\n\n## References\n\n\n\n## Links to this note\n\n\n\n## Tags\n\n" >> $filename
 	vim $filename
 }
 
-
 function zgrep() {
-	vim $(grep -rl $1 .)
+  ls -l $(grep -rl --exclude tags.txt $1 .) | sed 's/\.\///'
 }
 
+function ztags() {
+  grep -ohE '@#\w+' *.md >> temp.txt
+  cat temp.txt | sort | uniq > tags.txt
+  cat tags.txt
+  rm temp.txt
+  rm tags.txt
+}
