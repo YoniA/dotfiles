@@ -36,13 +36,17 @@ noremap <Left> <nop>
 
 
 
-call plug#begin('~/.vim/plugged')
-"call plug#begin()
+" easy expansion of the active file (buffer) directory (without filename)
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
+
+call plug#begin()
+Plug 'tpope/vim-surround'
 Plug 'bluz71/vim-nightfly-guicolors'
 Plug 'overcache/NeoSolarized'
 Plug 'preservim/nerdtree'
 Plug 'bluz71/vim-moonfly-colors'
+Plug 'ghifarit53/tokyonight-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'godlygeek/tabular'
 Plug 'preservim/vim-markdown'
@@ -51,11 +55,13 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 call plug#end()
 
 
-set background=dark
-colorscheme moonfly
+set termguicolors
 
-"colorscheme NeoSolarized
-let g:neosolarized_contrast = "low"
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 1
+set background=dark
+
+colorscheme tokyonight
 
 
 " disable markdown folding (vim-markdown plugin)
@@ -115,3 +121,13 @@ let g:mkdp_preview_options = {
     \ 'disable_filename': 0,
     \ 'toc': {}
     \ }
+
+
+set visualbell
+set t_vb=
+
+let g:NERDTreeWinPos = "left"
+let NERDTreeShowLineNumbers=1
+" make sure relative line numbers are used
+autocmd FileType nerdtree setlocal relativenumber
+map <C-n> :NERDTreeToggle<CR>
