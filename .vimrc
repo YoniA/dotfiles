@@ -14,6 +14,9 @@ set expandtab
 " fix backspace behavior in macOS
 set backspace=indent,eol,start
 
+" when using :vsplit, open file to the right
+set splitright
+
 set history=200
 
 " enable spell check
