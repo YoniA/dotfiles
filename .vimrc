@@ -19,8 +19,8 @@ set splitright
 
 set history=200
 
-" enable spell check
-set spell
+" disable spell check
+set nospell
 
 set path+=**
 
